@@ -1,0 +1,48 @@
+-- Q1 - All records of artist ID =10
+
+select *
+from albums
+WHERE ArtistId = 10
+
+-- Q2 - All invoices detail of country USA Canada Denmark
+select *
+from invoices
+where BillingCountry in ('USA', 'Canada', 'Denmark')
+
+
+-- Q3 - Top 5 countries with highest total sum invoices. 
+select BillingCountry, sum(Total) as gross_revenue
+from invoices
+group by BillingCountry
+order by gross_revenue desc
+limit 5
+
+
+-- Q4 -- Record of all invoices where city ending with on and total more than 10
+select *
+from invoices
+where (BillingCity like '%on') and (Total >10)
+
+-- Q5 - Display AlbumID, album name, Artist name
+select albums.AlbumId, albums.Title, artists.Name
+from albums inner join artists
+		on albums.ArtistId = artists.ArtistId
+
+
+-- Q6 - Find all invoices where total is more than avg total of all 
+select *
+from invoices
+where total > (select avg(total) from invoices)
+
+-- Q7 -- All Cities where sum of all invoices is more than 50
+select BillingCity, sum(total) as gross_revenue
+from invoices
+group by BillingCity
+having gross_revenue >50
+
+
+
+
+
+
+
